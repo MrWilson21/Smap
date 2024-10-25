@@ -9,6 +9,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import SmellRatingModal from './smellRatingModal';
 import { randomUUID } from 'crypto';
+import { Markers } from './markerPopup';
 
 const iconSize: [number, number] = [50, 50];
 const iconAnchor: [number, number] = [25, 25];
@@ -179,16 +180,7 @@ const MapComponent = () => {
               attribution="&copy; OpenStreetMap contributors"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {markers.map((marker) => (
-              <Marker
-                icon={icons[marker.icon]}
-                key={marker.id}
-                position={marker.position}
-                eventHandlers={{
-                  click: () => null,
-                }}
-              />
-            ))}
+            <Markers markers={markers} />
             <CreateRating markers={markers} setMarkers={setMarkers} />
           </MapContainer>
         )}

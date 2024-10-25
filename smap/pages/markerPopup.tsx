@@ -6,6 +6,16 @@ type MarkerPopupProps = {
   marker: IMarker;
 };
 
+export const Markers = ({ markers }: { markers: IMarker[] }) => {
+  return (
+    <>
+      {markers.map((marker) => (
+        <MarkerPopup key={marker.id} marker={marker} />
+      ))}
+    </>
+  );
+}
+
 const MarkerPopup = ({ marker }: MarkerPopupProps) => {
   return (
     <Marker

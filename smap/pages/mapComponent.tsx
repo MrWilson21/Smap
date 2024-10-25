@@ -9,8 +9,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import SmellRatingModal from './smellRatingModal';
 import { v4 as randomUUID } from 'uuid';
-import { Button } from '@/components/ui/button';
-import MarkerPopup from './markerPopup';
+import { Markers } from './markerPopup';
 import Head from 'next/head';
 
 const iconSize: [number, number] = [50, 50];
@@ -177,8 +176,8 @@ function CreateRating(props: CreateRatingProps) {
 
     const newMarker: Marker = {
       id: randomUUID(),
-      position: location,
-      reviews: [data],
+      position: [52.62952658732376, 1.2859931587362452],
+      reviews: [],
       icon: 'toxicIcon',
     };
 
@@ -188,10 +187,11 @@ function CreateRating(props: CreateRatingProps) {
 
   const map = useMapEvents({
     click: () => {
-      map.locate();
+      map.locate({ enableHighAccuracy: true });
     },
     locationfound: (location) => {
       setOpen(true);
+      console.log('location found:', location);
       setLocation([location.latlng.lat, location.latlng.lng]);
     },
   });
@@ -227,9 +227,7 @@ const MapComponent = () => {
             attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {markers.map((marker) => (
-            <MarkerPopup marker={marker} key={marker.id}/>
-          ))}
+          <Markers markers={markers} />
           <CreateRating markers={markers} setMarkers={setMarkers} />
         </MapContainer>
       </div>
