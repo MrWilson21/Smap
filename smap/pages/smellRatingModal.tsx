@@ -51,12 +51,6 @@ export default function SmellRatingModal(props: SmellRatingModalProps) {
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-muted-foreground">
           <div className="space-y-2">
-            <label htmlFor="title" className="text-sm font-medium">
-              Title
-            </label>
-            <Input id="title" {...register("title", { required: true })} placeholder="Enter a title" />
-          </div>
-          <div className="space-y-2">
             <label htmlFor="message" className="text-sm font-medium">
               Message
             </label>

@@ -1,21 +1,23 @@
 // components/Map.js
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useRef } from 'react';
-import "leaflet/dist/images/marker-shadow.png";
+import 'leaflet/dist/images/marker-shadow.png';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import SmellRatingModal from './smellRatingModal';
 import { v4 as randomUUID } from 'uuid';
+import { Button } from '@/components/ui/button';
+import MarkerPopup from './markerPopup';
 
 const iconSize: [number, number] = [50, 50];
 const iconAnchor: [number, number] = [25, 25];
 
 let DefaultIcon = L.icon({
-    iconUrl: icon.src,
-    shadowUrl: iconShadow.src
+  iconUrl: icon.src,
+  shadowUrl: iconShadow.src,
 });
 
 const beerIcon = new L.Icon({
@@ -81,7 +83,7 @@ const toxicIcon = new L.Icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const icons = {
+export const icons = {
   beerIcon,
   breadIcon,
   burgerIcon,
@@ -92,25 +94,70 @@ const icons = {
   sheepIcon,
   sushiIcon,
   toxicIcon,
-}
+};
 
-type Marker = {
+export type Marker = {
   id: string;
   position: [number, number];
-  reviews: { message: string, rating: number }[];
+  reviews: { message: string; rating: number }[];
   icon: keyof typeof icons;
 };
 
 const initialMarkerData: Marker[] = [
-  { id: randomUUID(), position: [52.62952658732376, 1.2859931587362452], reviews: [], icon: 'breadIcon' },
-  { id: randomUUID(), position: [52.630166203372205, 1.2920765062333093], reviews: [], icon: 'coffeeIcon' },
-  { id: randomUUID(), position: [52.62931346641531, 1.2895524445823923], reviews: [], icon: 'icecreamIcon' },
-  { id: randomUUID(), position: [52.622505081627374, 1.2967404597303773], reviews: [], icon: 'petrolIcon' },
-  { id: randomUUID(), position: [52.639006795570765, 1.2894668554757982], reviews: [], icon: 'toxicIcon' },
-  { id: randomUUID(), position: [52.629570713003304, 1.2862641131470753], reviews: [], icon: 'flowerIcon' },
-  { id: randomUUID(), position: [52.58863180894606, 1.2706696974739864], reviews: [], icon: 'toxicIcon' },
-  { id: randomUUID(), position: [52.621633449858294, 1.2421635912338216], reviews: [], icon: 'beerIcon' },
-  { id: randomUUID(), position: [52.62986785084428, 1.2824378529987093], reviews: [], icon: 'flowerIcon' },
+  {
+    id: randomUUID(),
+    position: [52.62952658732376, 1.2859931587362452],
+    reviews: [],
+    icon: 'breadIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.630166203372205, 1.2920765062333093],
+    reviews: [],
+    icon: 'coffeeIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.62931346641531, 1.2895524445823923],
+    reviews: [],
+    icon: 'icecreamIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.622505081627374, 1.2967404597303773],
+    reviews: [],
+    icon: 'petrolIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.639006795570765, 1.2894668554757982],
+    reviews: [],
+    icon: 'toxicIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.629570713003304, 1.2862641131470753],
+    reviews: [],
+    icon: 'flowerIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.58863180894606, 1.2706696974739864],
+    reviews: [],
+    icon: 'toxicIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.621633449858294, 1.2421635912338216],
+    reviews: [],
+    icon: 'beerIcon',
+  },
+  {
+    id: randomUUID(),
+    position: [52.62986785084428, 1.2824378529987093],
+    reviews: [],
+    icon: 'flowerIcon',
+  },
 ];
 
 type CreateRatingProps = {
@@ -119,12 +166,12 @@ type CreateRatingProps = {
 };
 
 function CreateRating(props: CreateRatingProps) {
-  const [open, setOpen] = useState(false)
-  const [location, setLocation] = useState<[number, number] | null>(null)
+  const [open, setOpen] = useState(false);
+  const [location, setLocation] = useState<[number, number] | null>(null);
 
-  const onCreateRating = (data: { message: string, rating: number }) => {
+  const onCreateRating = (data: { message: string; rating: number }) => {
     if (location === null) {
-      return
+      return;
     }
 
     const newMarker: Marker = {
@@ -132,35 +179,41 @@ function CreateRating(props: CreateRatingProps) {
       position: location,
       reviews: [data],
       icon: 'toxicIcon',
-    }
+    };
 
-    props.setMarkers([...props.markers, newMarker])
-    setOpen(false)
-  }
+    props.setMarkers([...props.markers, newMarker]);
+    setOpen(false);
+  };
 
   const map = useMapEvents({
     click: () => {
-      console.log('map clicked')
-      map.locate()
+      console.log('map clicked');
+      map.locate();
     },
     locationfound: (location) => {
-      console.log('location found:', location)
-      setLocation([location.latlng.lat, location.latlng.lng])
-      setOpen(true)
+      console.log('location found:', location);
+      setLocation([location.latlng.lat, location.latlng.lng]);
+      setOpen(true);
     },
-  })
+  });
 
-  return <>
-    <SmellRatingModal open={open} onOpenChange={() => setOpen(!open)} onSubmit={() => null} />
-</>
+  return (
+    <>
+      <SmellRatingModal
+        open={open}
+        onOpenChange={() => setOpen(!open)}
+        onSubmit={(data) => onCreateRating(data)}
+      />
+    </>
+  );
 }
 
 const MapComponent = () => {
   const [modalData, setModalData] = useState(null);
   const mapRef = useRef(null); // Reference to the map instance
 
-  const [markers, setMarkers] = useState([...initialMarkerData])
-
+  const [markers, setMarkers] = useState([...initialMarkerData]);
+  console.log(markers);
   const handleMarkerClick = (info) => {
     setModalData(info);
   };
@@ -168,32 +221,23 @@ const MapComponent = () => {
   return (
     <>
       <div id="map" style={{ height: '100vh', width: '100%' }}>
-        {mapRef.current === null && (
-          <MapContainer
-            center={[52.6293,  1.2979]}
-            zoom={14}
-            style={{ height: '100%', width: '100%' }}
-            whenCreated={(mapInstance) => {
-              mapRef.current = mapInstance;
-            }}
-          >
-            <TileLayer
-              attribution="&copy; OpenStreetMap contributors"
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {markers.map((marker) => (
-              <Marker
-                icon={icons[marker.icon]}
-                key={marker.id}
-                position={marker.position}
-                eventHandlers={{
-                  click: () => null,
-                }}
-              />
-            ))}
-            <CreateRating markers={markers} setMarkers={setMarkers} />
-          </MapContainer>
-        )}
+        <MapContainer
+          center={[52.6293, 1.2979]}
+          zoom={14}
+          style={{ height: '100%', width: '100%' }}
+          whenCreated={(mapInstance) => {
+            mapRef.current = mapInstance;
+          }}
+        >
+          <TileLayer
+            attribution="&copy; OpenStreetMap contributors"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {markers.map((marker) => (
+            <MarkerPopup marker={marker} key={marker.id}/>
+          ))}
+          <CreateRating markers={markers} setMarkers={setMarkers} />
+        </MapContainer>
       </div>
     </>
   );
