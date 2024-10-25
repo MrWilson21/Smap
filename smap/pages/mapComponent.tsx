@@ -96,12 +96,33 @@ export const icons = {
   toxicIcon,
 };
 
-export type Marker = {
+type Info = {
+  tags: string[];
+  reviews: {userName: string, message: string, rating: number }[];
+  avgRating: number;
+  pictureUrl: string;
+}
+
+type Marker = {
   id: string;
   position: [number, number];
-  reviews: { message: string; rating: number }[];
+  title: string,
+  info: Info,
   icon: keyof typeof icons;
 };
+
+const defaultInfo: Info = {
+  tags: ['Smell tag'],
+  reviews: [
+    {
+      userName: 'username',
+      message: 'message', 
+      rating: 5 
+    }
+  ],
+  avgRating: 5,
+  pictureUrl: ''
+}
 
 const initialMarkerData: Marker[] = [
   {
