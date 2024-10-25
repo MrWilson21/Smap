@@ -1,6 +1,7 @@
-import { Popup, Marker } from 'react-leaflet';
+import { Marker, Tooltip } from 'react-leaflet';
 import { icons, type Marker as IMarker } from './mapComponent';
 import { Button } from '@/components/ui/button';
+import { Typography } from '@mui/material';
 
 type MarkerPopupProps = {
   marker: IMarker;
@@ -12,15 +13,13 @@ const MarkerPopup = ({ marker }: MarkerPopupProps) => {
       icon={icons[marker.icon]}
       key={marker.id}
       position={marker.position}
-      eventHandlers={{
-        click: () => null,
-      }}
     >
-      <Popup>
-        <div>
-          <Button>Add smell</Button>
-        </div>
-      </Popup>
+      <Tooltip direction="top">
+        <img src={marker.pictureUrl}></img>
+        <Typography>
+        {marker.title}
+        </Typography>
+      </Tooltip>
     </Marker>
   );
 };

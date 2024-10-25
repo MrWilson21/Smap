@@ -114,7 +114,7 @@ const defaultInfo: Info = {
   pictureUrl: ''
 }
 
-const markers : Marker[] = [
+const initialMarkerData : Marker[] = [
   { id: randomUUID(), position: [52.62952658732376, 1.2859931587362452], title: 'Breadsource', info: defaultInfo, icon: 'breadIcon' },
   { id: randomUUID(), position: [52.630166203372205, 1.2920765062333093], title: 'Strangers', info: defaultInfo, icon: 'coffeeIcon' },
   { id: randomUUID(), position: [52.62931346641531, 1.2895524445823923], title: 'The Waffle House', info: defaultInfo, icon: 'icecreamIcon' },
