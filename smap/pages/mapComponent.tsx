@@ -135,7 +135,7 @@ const nickInfo: Info = {
     }
   ],
   avgRating: 2.3,
-  pictureUrl: 'reviewImages/nick.png'
+  pictureUrl: '/reviewImages/nick.png'
 }
 
 const GreggsInfo: Info = {
@@ -158,7 +158,7 @@ const GreggsInfo: Info = {
     },
   ],
   avgRating: 2.3,
-  pictureUrl: 'reviewImages/nick.png'
+  pictureUrl: '/reviewImages/nick.png'
 }
 
 const initialMarkerData : IMarker[] = [

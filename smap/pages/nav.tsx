@@ -73,7 +73,7 @@ export default function Navbar() {
             {/* You can add a search input or other elements here if needed */}
           </div>
           <nav className="flex items-center">
-            {/* You can add user-related items here, like a profile button */}
+            Logout
           </nav>
         </div>
       </div>

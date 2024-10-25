@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Star } from 'lucide-react'
+import { Star, Type } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -27,9 +27,11 @@ export default function RatingsSidebar({marker} : RatingsSidebarProps) {
     <SidebarProvider className='w-auto '>
       <Sidebar className="border-r">
         <SidebarHeader className="border-b px-4 pb-2 pt-20">
-          <h2 className="text-lg font-semibold">Ratings & Reviews</h2>
+          <h2 className="text-lg font-semibold">{marker.title}</h2>
         </SidebarHeader>
         <SidebarContent className="px-4 py-2">
+          {marker.info.pictureUrl && <Image src={marker.info.pictureUrl} alt="smap" width={300} height={400} />}
+
           {marker.info.reviews.map((review) => (
             <Card key={review.message} className="mb-4">
               <CardHeader className="pb-2">
@@ -53,7 +55,7 @@ export default function RatingsSidebar({marker} : RatingsSidebarProps) {
                 </div>
               </CardHeader>
               <CardContent>
-                <CardDescription>{review.message}</CardDescription>
+                <CardDescription>{review.message} </CardDescription>
               </CardContent>
             </Card>
           ))}
