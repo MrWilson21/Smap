@@ -18,31 +18,6 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { IMarker } from './mapComponent'
 
-// Sample data for reviews
-const reviews = [
-  {
-    id: 1,
-    author: 'Alice Johnson',
-    avatar: '/placeholder.svg?height=40&width=40',
-    rating: 5,
-    comment: 'Absolutely love this place! The bread is always fresh and delicious.',
-  },
-  {
-    id: 2,
-    author: 'Bob Smith',
-    avatar: '/placeholder.svg?height=40&width=40',
-    rating: 4,
-    comment: 'Great atmosphere and friendly staff. The coffee is top-notch.',
-  },
-  {
-    id: 3,
-    author: 'Carol Davis',
-    avatar: '/placeholder.svg?height=40&width=40',
-    rating: 5,
-    comment: 'Their artisanal pastries are to die for. A must-visit bakery!',
-  },
-]
-
 type RatingsSidebarProps = {
   marker: IMarker
 }
