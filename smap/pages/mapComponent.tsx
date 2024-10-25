@@ -11,6 +11,7 @@ import SmellRatingModal from './smellRatingModal';
 import { v4 as randomUUID } from 'uuid';
 import { Button } from '@/components/ui/button';
 import MarkerPopup from './markerPopup';
+import Head from 'next/head';
 
 const iconSize: [number, number] = [50, 50];
 const iconAnchor: [number, number] = [25, 25];
@@ -187,13 +188,11 @@ function CreateRating(props: CreateRatingProps) {
 
   const map = useMapEvents({
     click: () => {
-      console.log('map clicked');
       map.locate();
     },
     locationfound: (location) => {
-      console.log('location found:', location);
-      setLocation([location.latlng.lat, location.latlng.lng]);
       setOpen(true);
+      setLocation([location.latlng.lat, location.latlng.lng]);
     },
   });
 
@@ -214,21 +213,16 @@ const MapComponent = () => {
 
   const [markers, setMarkers] = useState([...initialMarkerData]);
   console.log(markers);
-  const handleMarkerClick = (info) => {
-    setModalData(info);
-  };
 
   return (
     <>
+      <Head><title>Smap</title></Head>
       <div id="map" style={{ height: '100vh', width: '100%' }}>
         <MapContainer
           center={[52.6293, 1.2979]}
           zoom={14}
           style={{ height: '100%', width: '100%' }}
-          whenCreated={(mapInstance) => {
-            mapRef.current = mapInstance;
-          }}
-        >
+         >
           <TileLayer
             attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

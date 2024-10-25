@@ -28,11 +28,11 @@ type SmellRatingModalProps = {
 }
 
 export default function SmellRatingModal(props: SmellRatingModalProps) {
-  const { register, handleSubmit, control, setValue, watch } = useForm<SmellRatingFormData>()
+  const { register, handleSubmit, control, setValue, watch, reset } = useForm<SmellRatingFormData>()
 
   const onSubmit = (data: SmellRatingFormData) => {
-    console.log(data)
     props.onSubmit(data)
+    reset()
   }
 
   const watchImage = watch("image")
