@@ -62,6 +62,7 @@ export default function RatingsSidebar({marker} : RatingsSidebarProps) {
           <Button>Add your review</Button>
         </SidebarContent>
         <SidebarFooter className="border-t p-4">
+          {marker.info.showad && 
           <Card className="bg-orange-100">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -79,6 +80,7 @@ export default function RatingsSidebar({marker} : RatingsSidebarProps) {
               </Button>
             </CardContent>
           </Card>
+          }
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>

@@ -92,6 +92,7 @@ type Info = {
   reviews: {userName: string, message: string, rating: number }[];
   avgRating: number;
   pictureUrl: string;
+  showad: boolean;
 }
 
 export type IMarker = {
@@ -112,7 +113,8 @@ const defaultInfo: Info = {
     }
   ],
   avgRating: 5,
-  pictureUrl: ''
+  pictureUrl: '',
+  showad: false
 }
 
 const nickInfo: Info = {
@@ -135,7 +137,8 @@ const nickInfo: Info = {
     }
   ],
   avgRating: 2.3,
-  pictureUrl: '/reviewImages/nick.png'
+  pictureUrl: '/reviewImages/nick.png',
+  showad: false
 }
 
 const GreggsInfo: Info = {
@@ -158,7 +161,8 @@ const GreggsInfo: Info = {
     },
   ],
   avgRating: 2.3,
-  pictureUrl: '/reviewImages/nick.png'
+  pictureUrl: '/reviewImages/nick.png',
+  showad: true
 }
 
 const initialMarkerData : IMarker[] = [
@@ -221,6 +225,7 @@ function CreateRating(props: CreateRatingProps) {
         ],
         avgRating: data.rating,
         pictureUrl: '',
+        showad: false
       },
       icon: 'toxicIcon',
     };
