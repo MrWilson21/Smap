@@ -11,6 +11,7 @@ import SmellRatingModal from './smellRatingModal';
 import { v4 as randomUUID } from 'uuid';
 import { Markers } from './markerPopup';
 import Head from 'next/head';
+import RatingsSidebar from './sidebar';
 
 const iconSize: [number, number] = [50, 50];
 const iconAnchor: [number, number] = [25, 25];
@@ -114,7 +115,7 @@ const defaultInfo: Info = {
   pictureUrl: ''
 }
 
-const markers : Marker[] = [
+const initialMarkerData : Marker[] = [
   { id: randomUUID(), position: [52.62952658732376, 1.2859931587362452], title: 'Breadsource', info: defaultInfo, icon: 'breadIcon' },
   { id: randomUUID(), position: [52.630166203372205, 1.2920765062333093], title: 'Strangers', info: defaultInfo, icon: 'coffeeIcon' },
   { id: randomUUID(), position: [52.62931346641531, 1.2895524445823923], title: 'The Waffle House', info: defaultInfo, icon: 'icecreamIcon' },
@@ -197,16 +198,16 @@ const MapComponent = () => {
   const mapRef = useRef(null); // Reference to the map instance
 
   const [markers, setMarkers] = useState([...initialMarkerData]);
-  console.log(markers);
 
   return (
     <>
       <Head><title>Smap</title></Head>
-      <div id="map" style={{ height: '100vh', width: '100%' }}>
+      <div id="map" style={{ width: '100%', display: 'flex' }}>
+      <RatingsSidebar />
         <MapContainer
           center={[52.6293, 1.2979]}
           zoom={14}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: '100vh', width: '100%' }}
          >
           <TileLayer
             attribution="&copy; OpenStreetMap contributors"

@@ -123,11 +123,6 @@ export default function SmellRatingModal(props: SmellRatingModalProps) {
                 </Button>
               )}
             </div>
-            {watchImage && (
-              <div className="mt-2">
-                <img src={watchImage} alt="Captured smell location" className="max-w-full h-auto rounded-md" />
-              </div>
-            )}
           </div>
           <div className="flex justify-end space-x-2">
             <Button type="button" variant="outline" onClick={props.onOpenChange}>
