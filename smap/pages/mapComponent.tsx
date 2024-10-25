@@ -14,6 +14,16 @@ let DefaultIcon = L.icon({
     shadowUrl: iconShadow.src
 });
 
+// Breadsource - 52.62952658732376, 1.2859931587362452
+// Strangers - 52.630166203372205, 1.2920765062333093
+// The Waffle House - 52.63076388691691, 1.3913047578653808
+// Sainsburys petrol station - 52.622505081627374, 1.2967404597303773
+// Nicks house - wingfield road - 52.639006795570765, 1.2894668554757982
+// Florish - 52.629570713003304, 1.2862641131470753
+// Norwich Recycling - 52.58863180894606, 1.2706696974739864
+// LCR - UEA - 52.621633449858294, 1.2421635912338216
+// Plantation Garden 52.62986785084428, 1.2824378529987093
+
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const markers = [
