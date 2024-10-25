@@ -146,6 +146,16 @@ const GreggsInfo: Info = {
       message: 'EXTREMELY satisfactory smelling experience', 
       rating: 2 
     },
+    {
+      userName: 'Gregory',
+      message: 'I love sausage rolls!', 
+      rating: 4
+    },
+    {
+      userName: 'Gregson',
+      message: 'Such incredible smells', 
+      rating: 5
+    },
   ],
   avgRating: 2.3,
   pictureUrl: 'reviewImages/nick.png'

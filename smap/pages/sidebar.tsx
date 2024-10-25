@@ -66,7 +66,7 @@ export default function RatingsSidebar({marker} : RatingsSidebarProps) {
                 <div>
                   <CardTitle className="text-lg font-bold text-orange-800">Breadsource Café</CardTitle>
                   <CardDescription className="text-orange-700">
-                    Artisanal bread & coffee
+                    Artisanal bread & coffee<br/>
                     <Typography variant="caption">Sponsored</Typography>
                   </CardDescription>
                 </div>
