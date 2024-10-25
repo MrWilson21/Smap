@@ -1,8 +1,25 @@
 // components/Map.js
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useRef } from 'react';
+import "leaflet/dist/images/marker-shadow.png";
 import Modal from './modalComponent';
+
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon.src,
+    shadowUrl: iconShadow.src
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
+const markers = [
+  { id: 1, position: [52.6293,  1.2979], info: 'Marker 1 Info' },
+  { id: 2, position: [51.51, -0.1], info: 'Marker 2 Info' },
+]
 
 const MapComponent = () => {
   const [modalData, setModalData] = useState(null);
@@ -10,7 +27,7 @@ const MapComponent = () => {
 
   // Example marker data
   const markers = [
-    { id: 1, position: [51.5, -0.09], info: 'Marker 1 Info' },
+    { id: 1, position: [52.6293,  1.2979], info: 'Marker 1 Info' },
     { id: 2, position: [51.51, -0.1], info: 'Marker 2 Info' },
   ];
 
@@ -23,8 +40,8 @@ const MapComponent = () => {
       <div id="map" style={{ height: '100vh', width: '100%' }}>
         {mapRef.current === null && (
           <MapContainer
-            center={[51.505, -0.09]}
-            zoom={13}
+            center={[52.6293,  1.2979]}
+            zoom={14}
             style={{ height: '100%', width: '100%' }}
             whenCreated={(mapInstance) => {
               mapRef.current = mapInstance;
