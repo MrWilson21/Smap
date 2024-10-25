@@ -8,7 +8,7 @@ import "leaflet/dist/images/marker-shadow.png";
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import SmellRatingModal from './smellRatingModal';
-import { v4 as randomUUID } from 'uuid';
+import { randomUUID } from 'crypto';
 
 const iconSize: [number, number] = [50, 50];
 const iconAnchor: [number, number] = [25, 25];
@@ -140,7 +140,6 @@ function CreateRating(props: CreateRatingProps) {
 
   const map = useMapEvents({
     click: () => {
-      console.log('map clicked')
       map.locate()
     },
     locationfound: (location) => {
@@ -151,8 +150,7 @@ function CreateRating(props: CreateRatingProps) {
   })
 
   return <>
-    <SmellRatingModal open={open} onOpenChange={() => setOpen(!open)} onSubmit={() => null} />
-</>
+    <SmellRatingModal open={open} onOpenChange={() => setOpen(!open)} onSubmit={() => null} />  </>
 }
 
 const MapComponent = () => {

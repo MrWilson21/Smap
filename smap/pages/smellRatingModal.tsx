@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dialog"
 
 type SmellRatingFormData = {
-  title: string
   message: string
   rating: number
   image: string
@@ -25,6 +24,7 @@ type SmellRatingFormData = {
 type SmellRatingModalProps = {
   open: boolean
   onOpenChange: () => void
+  onSubmit: (data: SmellRatingFormData) => void
 }
 
 export default function SmellRatingModal(props: SmellRatingModalProps) {
@@ -32,7 +32,7 @@ export default function SmellRatingModal(props: SmellRatingModalProps) {
 
   const onSubmit = (data: SmellRatingFormData) => {
     console.log(data)
-    props.onOpenChange()
+    props.onSubmit(data)
   }
 
   const watchImage = watch("image")
