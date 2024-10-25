@@ -15,6 +15,8 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import Image from 'next/image'
+import { Typography } from '@mui/material'
+import { IMarker } from './mapComponent'
 
 // Sample data for reviews
 const reviews = [
@@ -41,7 +43,11 @@ const reviews = [
   },
 ]
 
-export default function RatingsSidebar() {
+type RatingsSidebarProps = {
+  marker: IMarker
+}
+
+export default function RatingsSidebar({marker} : RatingsSidebarProps) {
   return (
     <SidebarProvider className='w-auto '>
       <Sidebar className="border-r">
@@ -49,16 +55,15 @@ export default function RatingsSidebar() {
           <h2 className="text-lg font-semibold">Ratings & Reviews</h2>
         </SidebarHeader>
         <SidebarContent className="px-4 py-2">
-          {reviews.map((review) => (
-            <Card key={review.id} className="mb-4">
+          {marker.info.reviews.map((review) => (
+            <Card key={review.message} className="mb-4">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={review.avatar} alt={review.author} />
-                      <AvatarFallback>{review.author[0]}</AvatarFallback>
+                      <AvatarFallback>{review.userName[0]}</AvatarFallback>
                     </Avatar>
-                    <CardTitle className="text-sm font-medium">{review.author}</CardTitle>
+                    <CardTitle className="text-sm font-medium">{review.userName}</CardTitle>
                   </div>
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
@@ -73,7 +78,7 @@ export default function RatingsSidebar() {
                 </div>
               </CardHeader>
               <CardContent>
-                <CardDescription>{review.comment}</CardDescription>
+                <CardDescription>{review.message}</CardDescription>
               </CardContent>
             </Card>
           ))}
@@ -87,6 +92,7 @@ export default function RatingsSidebar() {
                   <CardTitle className="text-lg font-bold text-orange-800">Breadsource Café</CardTitle>
                   <CardDescription className="text-orange-700">
                     Artisanal bread & coffee
+                    <Typography variant="caption">Sponsored</Typography>
                   </CardDescription>
                 </div>
                 <Image src="/breadsourcelogo.png" alt="Breadsource Café logo" width={60} height={60} />

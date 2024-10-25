@@ -1,5 +1,5 @@
 // components/Map.js
-import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker as IMarker, useMapEvents, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useRef } from 'react';
@@ -94,7 +94,7 @@ type Info = {
   pictureUrl: string;
 }
 
-type Marker = {
+export type IMarker = {
   id: string;
   position: [number, number];
   title: string,
@@ -115,7 +115,7 @@ const defaultInfo: Info = {
   pictureUrl: ''
 }
 
-const initialMarkerData : Marker[] = [
+const initialMarkerData : IMarker[] = [
   { id: randomUUID(), position: [52.62952658732376, 1.2859931587362452], title: 'Breadsource', info: defaultInfo, icon: 'breadIcon' },
   { id: randomUUID(), position: [52.630166203372205, 1.2920765062333093], title: 'Strangers', info: defaultInfo, icon: 'coffeeIcon' },
   { id: randomUUID(), position: [52.62931346641531, 1.2895524445823923], title: 'The Waffle House', info: defaultInfo, icon: 'icecreamIcon' },
@@ -147,8 +147,8 @@ const initialMarkerData : Marker[] = [
 ];
 
 type CreateRatingProps = {
-  markers: Marker[];
-  setMarkers: (markers: Marker[]) => void;
+  markers: IMarker[];
+  setMarkers: (markers: IMarker[]) => void;
 };
 
 function CreateRating(props: CreateRatingProps) {
@@ -160,10 +160,22 @@ function CreateRating(props: CreateRatingProps) {
       return;
     }
 
-    const newMarker: Marker = {
+    const newMarker: IMarker = {
       id: randomUUID(),
+      title: 'New Marker',
       position: [52.62952658732376, 1.2859931587362452],
-      reviews: [],
+      info: {
+        tags: ['Smell tag'],
+        reviews: [
+          {
+            userName: 'username',
+            message: data.message,
+            rating: data.rating,
+          },
+        ],
+        avgRating: data.rating,
+        pictureUrl: '',
+      },
       icon: 'toxicIcon',
     };
 
@@ -195,15 +207,20 @@ function CreateRating(props: CreateRatingProps) {
 
 const MapComponent = () => {
   const [modalData, setModalData] = useState(null);
+  const [sidebarMarker, setShowSidebar] = useState<IMarker | null>(null);
   const mapRef = useRef(null); // Reference to the map instance
 
   const [markers, setMarkers] = useState([...initialMarkerData]);
+
+  const handleMarkerClick = (marker: IMarker) => {
+    setShowSidebar(marker);
+  }
 
   return (
     <>
       <Head><title>Smap</title></Head>
       <div id="map" style={{ width: '100%', display: 'flex' }}>
-      <RatingsSidebar />
+        {sidebarMarker && <RatingsSidebar marker={sidebarMarker} />}
         <MapContainer
           center={[52.6293, 1.2979]}
           zoom={14}
@@ -213,7 +230,7 @@ const MapComponent = () => {
             attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Markers markers={markers} />
+          <Markers markers={markers} onClick={handleMarkerClick} />
           <CreateRating markers={markers} setMarkers={setMarkers} />
         </MapContainer>
       </div>
