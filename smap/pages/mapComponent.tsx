@@ -115,12 +115,48 @@ const defaultInfo: Info = {
   pictureUrl: ''
 }
 
+const nickInfo: Info = {
+  tags: ['Toxic', 'haunted', 'smelly'],
+  reviews: [
+    {
+      userName: 'Vin Diesel',
+      message: 'Smells like diesel', 
+      rating: 2 
+    },
+    {
+      userName: 'Gordon Ramsey',
+      message: 'This house is a toxic wasteland', 
+      rating: 1 
+    },
+    {
+      userName: 'Martin',
+      message: 'Smells good, 4/5 would smell again', 
+      rating: 4 
+    }
+  ],
+  avgRating: 2.3,
+  pictureUrl: 'reviewImages/nick.png'
+}
+
+const GreggsInfo: Info = {
+  tags: ['Yummers', 'Warm', 'Bread'],
+  reviews: [
+    {
+      userName: 'Greg',
+      message: 'EXTREMELY satisfactory smelling experience', 
+      rating: 2 
+    },
+  ],
+  avgRating: 2.3,
+  pictureUrl: 'reviewImages/nick.png'
+}
+
 const initialMarkerData : IMarker[] = [
   { id: randomUUID(), position: [52.62952658732376, 1.2859931587362452], title: 'Breadsource', info: defaultInfo, icon: 'breadIcon' },
   { id: randomUUID(), position: [52.630166203372205, 1.2920765062333093], title: 'Strangers', info: defaultInfo, icon: 'coffeeIcon' },
   { id: randomUUID(), position: [52.62931346641531, 1.2895524445823923], title: 'The Waffle House', info: defaultInfo, icon: 'icecreamIcon' },
   { id: randomUUID(), position: [52.622505081627374, 1.2967404597303773], title: 'Sainsburys petrol station', info: defaultInfo, icon: 'petrolIcon' },
-  { id: randomUUID(), position: [52.639006795570765, 1.2894668554757982], title: 'Nicks house', info: defaultInfo, icon: 'toxicIcon' },
+  { id: randomUUID(), position: [52.639006795570765, 1.2894668554757982], title: 'Nicks house', info: nickInfo, icon: 'toxicIcon' },
   { id: randomUUID(), position: [52.629570713003304, 1.2862641131470753], title: 'Florish', info: defaultInfo, icon: 'flowerIcon' },
   { id: randomUUID(), position: [52.58863180894606, 1.2706696974739864], title: 'Norwich Recycling', info: defaultInfo, icon: 'toxicIcon' },
   { id: randomUUID(), position: [52.621633449858294, 1.2421635912338216], title: 'LCR', info: defaultInfo, icon: 'beerIcon' },
@@ -140,7 +176,7 @@ const initialMarkerData : IMarker[] = [
   { id: randomUUID(), position: [52.620924983224384, 1.2991711646488293], title: 'Brew & Biscuit', info: defaultInfo, icon: 'coffeeIcon' },
   { id: randomUUID(), position: [52.65832124036193, 1.2960896250555982], title: 'Catton Park Sheeps', info: defaultInfo, icon: 'sheepIcon' },
   { id: randomUUID(), position: [52.64419485067767, 1.2365348924891855], title: 'Easters Bakery', info: defaultInfo, icon: 'breadIcon' },
-  { id: randomUUID(), position: [52.622892803578814, 1.3071276682641961], title: 'Greggs', info: defaultInfo, icon: 'breadIcon' },
+  { id: randomUUID(), position: [52.622892803578814, 1.3071276682641961], title: 'Greggs', info: GreggsInfo, icon: 'breadIcon' },
   { id: randomUUID(), position: [52.619871166259536, 1.2971095949095677], title: 'Lakenham Creamery', info: defaultInfo, icon: 'icecreamIcon' },
   { id: randomUUID(), position: [52.61518476798714, 1.3122940290204816], title: 'Sweet shop', info: defaultInfo, icon: 'icecreamIcon' },
   { id: randomUUID(), position: [52.64523377601617, 1.2578130254040563], title: 'Chemical factory', info: defaultInfo, icon: 'toxicIcon' },
