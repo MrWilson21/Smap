@@ -1,5 +1,5 @@
 // components/Map.js
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useRef } from 'react';
@@ -8,6 +8,7 @@ import Modal from './modalComponent';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import SmellRatingModal from './smellRatingModal';
 
 let DefaultIcon = L.icon({
     iconUrl: icon.src,
@@ -26,20 +27,35 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const markers = [
+const initialMarkerData = [
   { id: 1, position: [52.6293,  1.2979], info: 'Marker 1 Info' },
   { id: 2, position: [51.51, -0.1], info: 'Marker 2 Info' },
 ]
+
+function CreateRating() {
+  const [open, setOpen] = useState(false)
+  const [location, setLocation] = useState<[number, number] | null>(null)
+
+  const map = useMapEvents({
+    click: () => {
+      map.locate()
+    },
+    locationfound: (location) => {
+      console.log('location found:', location)
+      setLocation([location.latlng.lat, location.latlng.lng])
+      setOpen(true)
+    },
+  })
+
+  return <>
+    <SmellRatingModal open={open} onOpenChange={() => setOpen(!open)} />  </>
+}
 
 const MapComponent = () => {
   const [modalData, setModalData] = useState(null);
   const mapRef = useRef(null); // Reference to the map instance
 
-  // Example marker data
-  const markers = [
-    { id: 1, position: [52.6293,  1.2979], info: 'Marker 1 Info' },
-    { id: 2, position: [51.51, -0.1], info: 'Marker 2 Info' },
-  ];
+  const [markers, setMarkers] = useState([...initialMarkerData])
 
   const handleMarkerClick = (info) => {
     setModalData(info);
@@ -70,6 +86,7 @@ const MapComponent = () => {
                 }}
               />
             ))}
+            <CreateRating />
           </MapContainer>
         )}
       </div>

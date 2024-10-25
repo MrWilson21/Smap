@@ -1,5 +1,5 @@
+import { Button } from '@/components/ui/button';
 import { Typography } from '@mui/material';
-import Button from '@mui/material/Button';
 import Image from 'next/image';
 import Link from 'next/link';
 
